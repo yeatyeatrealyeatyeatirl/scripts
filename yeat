@@ -1,0 +1,760 @@
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3')))()
+
+local w1 = library:CreateWindow("Penis Ware") -- Creates the window
+
+local farming = w1:CreateFolder("Farming") -- Creates the folder(U will put here your buttons,etc)
+
+local classfarming = w1:CreateFolder("Class Automation")
+
+local localplayer = w1:CreateFolder("Player")
+
+local misc = w1:CreateFolder("Misc")
+
+local fun = w1:CreateFolder("Fun")
+
+local credits = w1:CreateFolder("Credits")
+
+local Player = game.Players.LocalPlayer
+
+-- Values
+getgenv().nofire = false
+getgenv().officegate = false
+getgenv().flyspeed = 180
+getgenv().nostun = false
+getgenv().purgatorygate = false
+
+credits:Label("Made by penis",{
+    TextSize = 25; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(69,69,69); -- Self Explaining
+    
+}) 
+
+credits:Button("roberto")
+credits:Button("forosod")
+
+farming:Button("AutoRot",function()
+    if Player.Character.Race.Value ~= "Scroom" then return end
+    autoscroomrot()
+end)
+
+farming:Button("Auto Trinket Farm",function()
+    autotrinket()
+end)
+
+farming:Button("Rift Gem Farm",function()
+    riftgemfarm()
+end)
+
+classfarming:Button("Thief Training",function()
+    task.spawn(function()
+        thiefFarm()
+    end)
+end)
+
+classfarming:Button("Spear Training",function()
+    task.spawn(function()
+        spearfarm()
+    end)
+end)
+
+classfarming:Button("Warrior Training",function()
+    task.spawn(function()
+        warriorfarm()
+    end)
+end)
+
+classfarming:Button("Fallion Training",function()
+    task.spawn(function()
+        fallionfarm()
+    end)
+end)
+
+localplayer:Button("Unnamed ESP", function()
+    loadstring(game:HttpGet(('https://www.toptal.com/developers/hastebin/raw/apukizuqeh')))()
+end)
+
+localplayer:Button("Fly [CAPSLOCK]",function()
+    fly()
+end)
+
+localplayer:Slider("Fly Speed",{
+    min = 0; -- min value of the slider
+    max = 180; -- max value of the slider
+    precise = false; -- max 2 decimals
+},function(value)
+    getgenv().flyspeed = value
+end)
+
+localplayer:Toggle("No Fire",function(bool)
+    getgenv().nofire = bool
+    print(getgenv().nofire)
+end)
+
+localplayer:Toggle("No Stun",function(bool)
+    getgenv().nostun = bool
+    print(getgenv().nostun)
+end)
+
+localplayer:Button("No Fall",function()
+    nofalldamage()
+end)
+
+localplayer:Button("No Sun Burn",function()
+    antivampburn()
+end)
+
+misc:Button("Destroy Gui", function()
+    DestroyGui()
+end)
+
+misc:Button("Sell Trinkets", function()
+    AutoMerchant()
+end)
+
+misc:Button("Roll Gacha", function()
+    autogacha()
+end)
+
+misc:Button("All Obelisk", function()
+    task.spawn(function()
+        allobelisk()
+    end)
+end)
+
+misc:Slider("FOV",{
+    min = 50; -- min value of the slider
+    max = 120; -- max value of the slider
+    precise = true; -- max 2 decimals
+},function(value)
+    game:GetService("Workspace").CurrentCamera.FieldOfView = value
+end)
+
+fun:Toggle("Office Gate [deepforest3]",function(bool)
+    getgenv().officegate = bool
+    print(getgenv().officegate)
+end)
+
+fun:Toggle("Purgatory Gate [shore3]",function(bool)
+    getgenv().purgatorygate = bool
+    print(getgenv().purgatorygate)
+end)
+
+
+
+
+function DestroyGui()
+    for i,v in pairs(game.CoreGui:GetDescendants()) do
+        if string.match(v.Name, "Sexy") then
+            v.Parent:Destroy()
+        end
+    end
+end
+
+-- No stun
+local removeList = {"ClimbCooldown", "Stun", "NoDash", "NoJump", "NoDam", "ChargeBlock", "Action", "HeavyAttack", "LightAttack", "NoRegen", "Knocked", "Unconscious", "antinostun"}
+game.Players.LocalPlayer.Character.ChildAdded:Connect(function(Child)
+    if table.find(removeList, Child.Name) and getgenv().nostun == true then
+       task.wait()
+       Child:Destroy()
+    end
+end)
+
+-- No fire
+local Player = game.Players.LocalPlayer
+Player.Character.ChildAdded:Connect(function(Child)
+    if Child.Name == "Burning" and getgenv().nofire == true then
+        task.wait()
+        Player.Character.CharacterHandler.Remotes.Dodge:FireServer()
+    end
+end)
+
+function nofalldamage()
+    local falldamageEvent = game.Players.LocalPlayer.Character.CharacterHandler.Remotes:FindFirstChild("ApplyFallDamage")
+if falldamageEvent then
+    falldamageEvent:Destroy()
+end
+end
+
+function antivampburn()
+    local vampburnevent = game.Players.LocalPlayer.Character.CharacterHandler.Remotes:FindFirstChild("SunBurn")
+if vampburnevent then
+    vampburnevent:Destroy()
+end
+end
+
+
+Player.CharacterAdded:Connect(function()
+    task.wait()
+    -- No stun
+local removeList = {"ClimbCooldown", "Stun", "NoDash", "NoJump", "NoDam", "ChargeBlock", "Action", "HeavyAttack", "LightAttack", "NoRegen", "Knocked", "Unconscious", "antinostun"}
+game.Players.LocalPlayer.Character.ChildAdded:Connect(function(Child)
+    if table.find(removeList, Child.Name) and getgenv().nostun == true then
+       task.wait()
+       Child:Destroy()
+    end
+end)
+
+-- No fire
+local Player = game.Players.LocalPlayer
+Player.Character.ChildAdded:Connect(function(Child)
+    if Child.Name == "Burning" and getgenv().nofire == true then
+        task.wait()
+        Player.Character.CharacterHandler.Remotes.Dodge:FireServer()
+    end
+end)
+end)
+function riftgemfarm()
+for i,v in ipairs(game.Workspace.Trinkets:GetChildren()) do
+    if v:FindFirstChild("ClickPart") then
+        if not v.ClickPart:FindFirstChild("ClickDetector") then
+            continue
+        end
+        if v.BrickColor == BrickColor.new("Hot pink") then
+            for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.ClickPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(v.ClickPart.ClickDetector)
+        end
+        task.wait(0.6)
+        end
+        task.wait()
+    end
+end
+end
+
+function thiefFarm()
+    -- Thief class
+for i = 1,10 do
+    local NPCName = "Fabiana"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("ClickDetector") and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Alright"})
+    end
+    task.wait(0.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+end
+
+function warriorfarm()
+    -- Warrior class
+for i = 1,10 do
+    local NPCName = "Alfric"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("ClickDetector") and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Yeah."})
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "I'll pay."})
+    end
+    task.wait(1.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+end
+
+function spearfarm()
+    -- Spear training
+for i = 1,10 do
+    local NPCName = "Cu"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("ClickDetector") and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Yeah."})
+    end
+    task.wait(0.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+end
+
+function fallionfarm()
+    -- Fallion training
+for i = 1,10 do
+    local NPCName = "Fallion"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("ClickDetector") and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Yes."})
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "I'll pay."})
+    end
+    task.wait(0.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+end 
+
+function autotrinket()
+    local pause = false
+for i,v in ipairs(game.Workspace.Trinkets:GetChildren()) do
+    if v:FindFirstChild("ClickPart") then
+        if not v.ClickPart:FindFirstChild("ClickDetector") then
+            continue
+        end
+        if pause == true then
+            repeat task.wait() until pause == false
+        end
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.ClickPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(v.ClickPart.ClickDetector)
+        end
+        task.wait(0.5)
+    end
+end
+end
+
+function allobelisk()
+    -- Obelisks
+
+-- Forest Obelisk
+for i = 1,2 do
+    local NPCName = "ObeliskForest"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.HumanoidRootPart.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Resonate"})
+    end
+    task.wait(1.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+task.wait(2.5)
+
+-- Tundra Obelisk
+for i = 1,2 do
+    local NPCName = "ObeliskTundra"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.HumanoidRootPart.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Resonate"})
+    end
+    task.wait(1.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+task.wait(2.5)
+
+-- Sigil Obelisk
+for i = 1,2 do
+    local NPCName = "ObeliskSigil"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.HumanoidRootPart.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Resonate"})
+    end
+    task.wait(1.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+task.wait(2.5)
+
+-- Desert Obelisk
+for i = 1,2 do
+    local NPCName = "ObeliskDesert"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.HumanoidRootPart.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Resonate"})
+    end
+    task.wait(1.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+task.wait(2.5)
+
+-- DeepForest Obelisk
+for i = 1,2 do
+    local NPCName = "ObeliskDeepForest"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.HumanoidRootPart.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Resonate"})
+    end
+    task.wait(1.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+task.wait(2.5)
+
+-- Skycastle Obelisk
+for i = 1,2 do
+    local NPCName = "ObeliskSkyCastle"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.HumanoidRootPart.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Resonate"})
+    end
+    task.wait(1.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+task.wait(2.5)
+
+-- Shore Obelisk
+for i = 1,2 do
+    local NPCName = "ObeliskShore"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.HumanoidRootPart.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Resonate"})
+    end
+    task.wait(1.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+task.wait(2.5)
+
+-- Snail Obelisk
+for i = 1,2 do
+    local NPCName = "ObeliskSnail"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.HumanoidRootPart.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Resonate"})
+    end
+    task.wait(1.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+task.wait(2.5)
+
+-- Shore Obelisk
+for i = 1,2 do
+    local NPCName = "ObeliskShore"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.HumanoidRootPart.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Resonate"})
+    end
+    task.wait(1.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+task.wait(2.5)
+end
+
+function autogacha()
+    -- Gacha
+for i = 1,2 do
+    local NPCName = "Xenyari"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("ClickDetector") and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Sure, I'll pay."})
+    end
+    task.wait(0.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+end
+
+    local Player = game.Players.LocalPlayer
+    Player.Chatted:Connect(function(Chat)
+        if not Player.Character.HumanoidRootPart:FindFirstChild("VortexAttachment") then return end
+        if getgenv().officegate == false then return end
+        if Chat:lower() == "deepforest 3" then
+            task.wait(1)
+            Player.Character.HumanoidRootPart.CFrame = CFrame.new(-409.316101, 120.253784, 40699.8203, 0.0896688625, 6.45064233e-08, -0.99597162, 6.92218993e-09, 1, 6.53905516e-08, 0.99597162, -1.2757801e-08, 0.0896688625)
+        end
+    end)
+
+
+    local Player = game.Players.LocalPlayer
+Player.Chatted:Connect(function(Chat)
+    if not Player.Character.HumanoidRootPart:FindFirstChild("VortexAttachment") then return end
+    if getgenv().purgatorygate == false then return end
+    if Chat:lower() == "shore 3" then
+        task.wait(1)
+        Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").PurgatorySpawn.CFrame
+    end
+end)
+
+function AutoMerchant()
+    local NPCName = "Merchant"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("ClickDetector") and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "Can I sell in bulk?"})
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "It's a deal."})
+    end
+end
+
+function autoscroomrot()
+    local Player = game.Players.LocalPlayer
+
+function noclip()
+    task.spawn(function()
+        for i,v in pairs(Player.Character:GetDescendants()) do
+            if v:IsA("BasePart") and v.CanCollide == true then
+                local key = Instance.new("Folder")
+                key.Name = "CanCollideKey"..tostring(v.CanCollide)
+                key.Parent = v
+                v.CanCollide = false
+            end
+        end
+    end)
+end
+
+function clip()
+    task.spawn(function()
+        for i,v in pairs(Player.Character:GetDescendants()) do
+            if v:IsA("BasePart") and v.CanCollide == false and v:FindFirstChild("CanCollideKeyTrue") then
+                v.CanCollide = true
+            end
+        end
+    end)
+end
+
+while true do
+for i = 1,3 do
+    local active = true
+
+    local forcefield = Player.Character:FindFirstChildWhichIsA("ForceField")
+    if forcefield then
+        forcefield:Destroy()
+    end
+
+    Player.Character.HumanoidRootPart.CFrame = CFrame.new(2912.07178, 288.250153, 11.7929745, -0.0144743919, 0, 0.999895215, 0, 1, 0, -0.999895215, 0, -0.0144743919)
+    task.wait()
+    local bv = Instance.new("BodyVelocity")
+    game:GetService("CollectionService"):AddTag(bv, "AllowedBM")
+    bv.MaxForce = Vector3.one * math.huge
+    bv.P = math.huge
+    bv.Velocity = Vector3.new(0,180,0)
+    bv.Parent = Player.Character.HumanoidRootPart
+    game.Debris:AddItem(bv, 1)
+    task.delay(1,function()
+        active = false
+    end)
+    task.spawn(function()
+        repeat noclip() task.wait() until active == false
+        task.wait()
+        clip()
+    end)
+    Player.Character.Humanoid.Died:Wait()
+    task.wait(10)
+end
+
+for i = 1,1 do
+    local NPCName = "Ferryman"
+    local NPC = workspace.NPCs:FindFirstChild(NPCName)
+    if NPC and NPC:FindFirstChild("ClickDetector") and NPC:FindFirstChild("HumanoidRootPart") then
+        for i = 1,2 do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NPC.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            fireclickdetector(NPC.ClickDetector)
+        end
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "New Character\n(free)"})
+        task.wait()
+        game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["choice"] = "My Son."})
+    end
+    task.wait(0.5)
+end
+game:GetService("ReplicatedStorage").Requests.Dialogue:FireServer({["exit"] = true})
+task.wait(5)
+end
+end
+
+function fly()
+    local UIS = game:GetService("UserInputService")
+local Player = game.Players.LocalPlayer
+local flying = false
+local Camera = game.Workspace.CurrentCamera
+local vel = Vector3.new(0,0,0)
+local holdingW = false
+local holdingS = false
+local holdingA = false
+local holdingD = false
+local holdingSpace = false
+local holdingCtrl = false
+
+local speed
+
+function noclip()
+    task.spawn(function()
+        for i,v in pairs(Player.Character:GetDescendants()) do
+            if v:IsA("BasePart") and v.CanCollide == true then
+                local key = Instance.new("Folder")
+                key.Name = "CanCollideKey"..tostring(v.CanCollide)
+                key.Parent = v
+                v.CanCollide = false
+            end
+        end
+    end)
+end
+
+function clip()
+    task.spawn(function()
+        for i,v in pairs(Player.Character:GetDescendants()) do
+            if v:IsA("BasePart") and v.CanCollide == false and v:FindFirstChild("CanCollideKeyTrue") then
+                v.CanCollide = true
+            end
+        end
+    end)
+end
+
+UIS.InputBegan:Connect(function(input, GPE)
+    if GPE then return end
+    if input.KeyCode == Enum.KeyCode.W then
+        holdingW = true
+        task.spawn(function()
+            while holdingW == true do
+                vel = Camera.CFrame.lookVector * getgenv().flyspeed
+                task.wait()
+            end
+        end)
+    elseif input.KeyCode == Enum.KeyCode.S then
+        holdingS = true
+        task.spawn(function()
+            while holdingS == true do
+                vel = Camera.CFrame.lookVector * -getgenv().flyspeed
+                task.wait()
+            end
+        end)
+    elseif input.KeyCode == Enum.KeyCode.A then
+        holdingA = true
+        task.spawn(function()
+            while holdingA == true do
+                vel = Camera.CFrame.RightVector * -getgenv().flyspeed
+                task.wait()
+            end
+        end)
+    elseif input.KeyCode == Enum.KeyCode.D then
+        holdingD = true
+        task.spawn(function()
+            while holdingD == true do
+                vel = Camera.CFrame.RightVector * getgenv().flyspeed
+                task.wait()
+            end
+        end)
+    elseif input.KeyCode == Enum.KeyCode.Space then
+        holdingSpace = true
+        task.spawn(function()
+            while holdingSpace == true do
+                vel = Vector3.new(0,getgenv().flyspeed,0)
+                task.wait()
+            end
+        end)
+    elseif input.KeyCode == Enum.KeyCode.LeftControl then
+        holdingCtrl = true
+        task.spawn(function()
+            while holdingCtrl == true do
+                vel = Vector3.new(0,-getgenv().flyspeed,0)
+                task.wait()
+            end
+        end)
+    elseif input.KeyCode == Enum.KeyCode.CapsLock then
+        if flying == false then
+            flying = true
+            local falldamageEvent = game.Players.LocalPlayer.Character.CharacterHandler.Remotes:FindFirstChild("ApplyFallDamage")
+            if falldamageEvent then
+                falldamageEvent:Destroy()
+            end
+            local bv = Instance.new("BodyVelocity")
+            game:GetService("CollectionService"):AddTag(bv, "AllowedBM")
+            bv.MaxForce = Vector3.one * math.huge
+            bv.P = math.huge
+            bv.Parent = Player.Character.HumanoidRootPart
+            local bg = Instance.new("BodyGyro")
+            game:GetService("CollectionService"):AddTag(bg, "AllowedBM")
+		    bg.MaxTorque = Vector3.new(1, 1, 1) * 10000
+		    bg.P = 10000
+            bg.Parent = Player.Character.HumanoidRootPart
+            task.spawn(function()
+                while flying == true do
+                    Player.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+			        local Camera = game.Workspace.CurrentCamera
+				    bv.Velocity = vel
+				    bg.CFrame = Camera.CFrame * CFrame.new(0,0,-math.huge)
+                    noclip()
+                    task.wait()
+                end
+            end)
+            local key = Instance.new("Folder")
+            key.Name = Player.Name.."Key"
+            key.Parent = bv
+            local key2 = Instance.new("Folder")
+            key2.Name = Player.Name.."Key"
+            key2.Parent = bg
+        elseif flying == true then
+            for i,v in pairs(Player.Character.HumanoidRootPart:GetChildren()) do
+                if v:FindFirstChild(Player.Name.."Key") then
+                    v:Destroy()
+                end
+            end
+            clip()
+            flying = false
+        end
+    end
+end)
+
+UIS.InputEnded:Connect(function(input, GPE)
+    if input.KeyCode == Enum.KeyCode.W then
+        holdingW = false
+        vel = Vector3.new(0,0,0)
+    elseif input.KeyCode == Enum.KeyCode.S then
+        holdingS = false
+        vel = Vector3.new(0,0,0)
+    elseif input.KeyCode == Enum.KeyCode.A then
+        holdingA = false
+        vel = Vector3.new(0,0,0)
+    elseif input.KeyCode == Enum.KeyCode.D then
+        holdingD = false
+        vel = Vector3.new(0,0,0)
+    elseif input.KeyCode == Enum.KeyCode.Space then
+        holdingSpace = false
+        vel = Vector3.new(0,0,0)
+    elseif input.KeyCode == Enum.KeyCode.LeftControl then
+        holdingCtrl = false
+        vel = Vector3.new(0,0,0)
+    end
+end)
+end
