@@ -23,7 +23,7 @@ getgenv().flyspeed = 180
 getgenv().nostun = false
 getgenv().purgatorygate = false
 
-credits:Label("Made by penis",{
+credits:Label("Credits:",{
     TextSize = 25; -- Self Explaining
     TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
     BgColor = Color3.fromRGB(69,69,69); -- Self Explaining
