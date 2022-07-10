@@ -1,6 +1,6 @@
 local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3')))()
 
-local w1 = library:CreateWindow("penisware.cc") -- Creates the window
+local w1 = library:CreateWindow("Penis Ware") -- Creates the window
 
 local farming = w1:CreateFolder("Farming") -- Creates the folder(U will put here your buttons,etc)
 
@@ -23,7 +23,7 @@ getgenv().flyspeed = 180
 getgenv().nostun = false
 getgenv().purgatorygate = false
 
-credits:Label("Credits:",{
+credits:Label("Made by penis",{
     TextSize = 25; -- Self Explaining
     TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
     BgColor = Color3.fromRGB(69,69,69); -- Self Explaining
@@ -758,3 +758,334 @@ UIS.InputEnded:Connect(function(input, GPE)
     end
 end)
 end
+
+local Player = game.Players.LocalPlayer
+local Mouse = Player:GetMouse()
+local leaderboard = Player.PlayerGui.LeaderboardGui.MainFrame.ScrollingFrame
+
+
+
+function replaceleaderscript()
+    Player.PlayerGui.LeaderboardGui.LeaderboardClient.Disabled = true
+    for i,v in pairs(leaderboard:GetChildren()) do
+        v:Destroy()
+    end
+    local script = Player.PlayerGui.LeaderboardGui.LeaderboardClient
+game.Players.LocalPlayer.ChildRemoved:Connect(function(p1)
+	if p1.Name == "Ingame" then
+		script.Parent.Enabled = false;
+	end;
+end);
+game.Players.LocalPlayer.ChildAdded:Connect(function(p2)
+	if p2.Name == "Ingame" then
+		script.Parent.Enabled = true;
+	end;
+end);
+local l__MainFrame__1 = script.Parent:WaitForChild("MainFrame");
+local u1 = false;
+local u2 = {};
+local l__ScrollingFrame__3 = l__MainFrame__1:WaitForChild("ScrollingFrame");
+local l__PlayerLabel__4 = script:WaitForChild("PlayerLabel");
+local l__LocalPlayer__5 = game.Players.LocalPlayer;
+local function u6(p3, p4, p5, p6, p7, p8)
+	if workspace:FindFirstChild("IsPriv") then
+		local v2 = {};
+		if p3 ~= "" and p3 ~= " " then
+			return " " .. p3;
+		else
+			return;
+		end;
+	end;
+	local v3 = "";
+	if p6 == "Owner" then
+		if p7 == "Female" then
+			local v4 = "Lady";
+		else
+			v4 = "Lord";
+		end;
+		v3 = v4;
+		if p3 == "Ratriel" then
+			v3 = "Pontiff";
+		end;
+	end;
+	local v5 = {};
+	if v3 ~= "" then
+		table.insert(v5, v3);
+	end;
+	if p3 ~= "" and p3 ~= " " then
+		table.insert(v5, p3);
+	end;
+	if p5 ~= "" then
+		table.insert(v5, p5);
+	end;
+	local v6 = table.concat(v5, " ");
+	local v7 = 0;
+	if p8 > 0 then
+		v7 = 3 + string.len(tostring(p8)) * 3;
+	end;
+	local v8 = v7 > 0 and string.rep(" ", v7) .. v6 or v6;
+	if p4 ~= "" then
+		v8 = v8 .. ", " .. p4;
+	end;
+	return v8;
+end;
+local function u7()
+	if u1 then
+		return;
+	end;
+	u1 = true;
+	local v9 = {};
+	local v10, v11, v12 = pairs((game.Players:GetPlayers()));
+    while true do
+        local v13, v14 = v10(v11, v12);
+        if not v13 then
+            break;
+        end;
+        local l__leaderstats__15 = v14:FindFirstChild("leaderstats");
+        local v16 = l__leaderstats__15 and l__leaderstats__15:FindFirstChild("FirstName");
+        if l__leaderstats__15 then
+            local l__UberTitle__17 = l__leaderstats__15:FindFirstChild("UberTitle");
+        end;
+        local v18 = l__leaderstats__15 and l__leaderstats__15:FindFirstChild("Hidden");
+        if u2[v14] and v18 and not v18.Value and v16.Value ~= "" then
+            table.insert(v9, v14);
+        elseif u2[v14] then
+            u2[v14].Visible = false;
+        end;
+        task.wait()
+    end;
+	table.sort(v9, function(p9, p10)
+		if not p9 then
+			return true;
+		end;
+		if not p10 then
+			return false;
+		end;
+		local l__leaderstats__19 = p9:FindFirstChild("leaderstats");
+		local l__leaderstats__20 = p10:FindFirstChild("leaderstats");
+		local l__Value__21 = l__leaderstats__19.LastName.Value;
+		local l__Value__22 = l__leaderstats__20.LastName.Value;
+		if l__Value__21 ~= "" and l__Value__22 == "" then
+			return true;
+		end;
+		if l__Value__21 == "" and l__Value__22 ~= "" then
+			return false;
+		end;
+		if l__Value__21 < l__Value__22 then
+			return true;
+		end;
+		if l__Value__22 < l__Value__21 then
+			return false;
+		end;
+		local l__Value__23 = l__leaderstats__19.FirstName.Value;
+		local l__Value__24 = l__leaderstats__20.FirstName.Value;
+		if l__Value__23 < l__Value__24 then
+			return true;
+		end;
+		if l__Value__24 < l__Value__23 then
+			return false;
+		end;
+		return p9.Name < p10.Name;
+	end);
+	for v25, v26 in pairs(v9) do
+		local v27 = u2[v26];
+		v27.Position = UDim2.new(0, 0, 0, (v25 - 1) * 20);
+		v27.Visible = true;
+	end;
+	for v28, v29 in pairs(l__ScrollingFrame__3:children()) do
+
+	end;
+	local v30 = #v9 * 20;
+	l__MainFrame__1.Size = UDim2.new(0.05, 150, 0, math.min(v30 + 20, 340));
+	l__ScrollingFrame__3.CanvasSize = UDim2.new(0, 0, 0, v30);
+	u1 = false;
+end;
+local function u8(p11)
+	if u2[p11] then
+		return;
+	end;
+	u2[p11] = true;
+	local v31 = l__PlayerLabel__4:clone();
+	u2[p11] = v31;
+	local l__Prestige__32 = v31:WaitForChild("Prestige");
+	local l__leaderstats__33 = p11:WaitForChild("leaderstats");
+	local l__FirstName__34 = l__leaderstats__33:WaitForChild("FirstName");
+	local l__UberTitle__35 = l__leaderstats__33:WaitForChild("UberTitle");
+	local l__LastName__36 = l__leaderstats__33:WaitForChild("LastName");
+	local l__HouseRank__37 = l__leaderstats__33:WaitForChild("HouseRank");
+	local l__Gender__38 = l__leaderstats__33:WaitForChild("Gender");
+	local l__Hidden__39 = l__leaderstats__33:WaitForChild("Hidden");
+	local l__Prestige__40 = l__leaderstats__33:WaitForChild("Prestige");
+	local l__MaxEdict__41 = l__leaderstats__33:WaitForChild("MaxEdict");
+	game.ReplicatedStorage.Requests.ShowMaxEdict:InvokeServer();
+	if l__Hidden__39.Value and p11 ~= l__LocalPlayer__5 and p11.UserId ~= 1721299790 then
+		v31.Visible = false;
+	end;
+	local v42 = u6(l__FirstName__34.Value, l__UberTitle__35.Value, l__LastName__36.Value, l__HouseRank__37.Value, l__Gender__38.Value, l__Prestige__40.Value);
+	v31.Text = v42;
+	if l__Prestige__40.Value > 0 then
+		l__Prestige__32.Text = "#" .. l__Prestige__40.Value;
+		l__Prestige__32.Visible = true;
+	else
+		l__Prestige__32.Visible = false;
+	end;
+	if l__MaxEdict__41.Value then
+		v31.TextColor3 = Color3.fromRGB(255, 214, 81);
+	else
+		v31.TextColor3 = Color3.new(1, 1, 1);
+	end;
+	local u9 = v42;
+	l__UberTitle__35.Changed:Connect(function()
+		u9 = u6(l__FirstName__34.Value, l__UberTitle__35.Value, l__LastName__36.Value, l__HouseRank__37.Value, l__Gender__38.Value, l__Prestige__40.Value);
+		v31.Text = u9;
+		u7();
+	end);
+	l__FirstName__34.Changed:connect(function()
+		u9 = u6(l__FirstName__34.Value, l__UberTitle__35.Value, l__LastName__36.Value, l__HouseRank__37.Value, l__Gender__38.Value, l__Prestige__40.Value);
+		v31.Text = u9;
+		u7();
+	end);
+	l__LastName__36.Changed:connect(function()
+		u9 = u6(l__FirstName__34.Value, l__UberTitle__35.Value, l__LastName__36.Value, l__HouseRank__37.Value, l__Gender__38.Value, l__Prestige__40.Value);
+		v31.Text = u9;
+		u7();
+	end);
+	l__HouseRank__37.Changed:connect(function()
+		u9 = u6(l__FirstName__34.Value, l__UberTitle__35.Value, l__LastName__36.Value, l__HouseRank__37.Value, l__Gender__38.Value, l__Prestige__40.Value);
+		v31.Text = u9;
+		u7();
+	end);
+	l__Hidden__39.Changed:connect(function()
+		u7();
+	end);
+	l__Gender__38.Changed:connect(function()
+		u7();
+	end);
+	l__Prestige__40.Changed:connect(function()
+		u9 = u6(l__FirstName__34.Value, l__UberTitle__35.Value, l__LastName__36.Value, l__HouseRank__37.Value, l__Gender__38.Value, l__Prestige__40.Value);
+		if l__Prestige__40.Value > 0 then
+			l__Prestige__32.Text = "#" .. l__Prestige__40.Value;
+			l__Prestige__32.Visible = true;
+		else
+			l__Prestige__32.Visible = false;
+		end;
+		v31.Text = u9;
+	end);
+	l__MaxEdict__41.Changed:connect(function()
+		if l__MaxEdict__41.Value then
+			v31.TextColor3 = Color3.fromRGB(255, 214, 81);
+			return;
+		end;
+		v31.TextColor3 = Color3.new(1, 1, 1);
+	end);
+	local u10 = p11.Name
+	v31.MouseEnter:connect(function()
+		local v43 = 0;
+		if l__Prestige__40.Value > 0 then
+			v43 = 3 + string.len(tostring(l__Prestige__40.Value)) * 3;
+		end;
+		v31.Text = u10;
+		v31.TextTransparency = 0.3;
+	end);
+	v31.MouseLeave:connect(function()
+		v31.Text = u9;
+		v31.TextTransparency = 0;
+	end);
+	pcall(function()
+		v31.Parent = l__ScrollingFrame__3;
+	end);
+	u7();
+	return v31;
+end;
+game.Players.PlayerAdded:connect(function(p12)
+	u8(p12);
+end);
+game.Players.PlayerRemoving:connect(function(p13)
+	if not u2[p13] then
+		return;
+	end;
+	local v44 = u2[p13];
+	if v44 then
+		v44:Destroy();
+	end;
+	u2[p13] = nil;
+	u7();
+end);
+for v45, v46 in pairs(game.Players:GetPlayers()) do
+	spawn(function()
+		u8(v46);
+	end);
+end;
+end
+
+function addspectate(v)
+    v.MouseEnter:Connect(function()
+        local key = Instance.new("Folder")
+        key.Name = "CanSpectate"
+        key.Parent = v
+    end)
+    v.MouseLeave:Connect(function()
+        local key = v:FindFirstChild("CanSpectate")
+        if key then
+            key:Destroy()
+        end
+    end)
+end
+
+replaceleaderscript()
+
+task.wait(0.25)
+
+for i,v in ipairs(leaderboard:GetChildren()) do
+    v.Position = UDim2.new(0, 0, 0, (i - 1) * 20);
+	v.Visible = true;
+    v:GetPropertyChangedSignal("Text"):Connect(function()
+        print(v.Text)
+    end)
+    addspectate(v)
+end
+
+task.spawn(function()
+    while task.wait(5) do
+        replaceleaderscript()
+
+task.wait(0.25)
+
+for i,v in ipairs(leaderboard:GetChildren()) do
+    v.Position = UDim2.new(0, 0, 0, (i - 1) * 20);
+	v.Visible = true;
+    v:GetPropertyChangedSignal("Text"):Connect(function()
+        print(v.Text)
+    end)
+    addspectate(v)
+end
+    end
+end)
+
+leaderboard.ChildAdded:Connect(function(v)
+    local amount = leaderboard:GetChildren()
+    v.Position = UDim2.new(0, 0, 0, (amount - 1) * 20);
+	v.Visible = true;
+    task.wait()
+    addspectate(v)
+end)
+
+Mouse.Button1Down:Connect(function()
+    for i,v in pairs(leaderboard:GetChildren()) do
+        if v:FindFirstChild("CanSpectate") then
+            local oldname = v.Text
+            local name = string.gsub(oldname, "[ ?]", "")
+            local plr = game.Players:FindFirstChild(name)
+            if plr then
+                if not plr.Character:FindFirstChild("Humanoid") then
+                    continue
+                end
+                workspace.CurrentCamera.CameraSubject = plr.Character.Humanoid
+            else
+                local oldname = v.Text
+                local name = string.gsub(oldname, "[ ?]", "")
+                print(name.." not found")
+            end
+        end
+    end
+end)
