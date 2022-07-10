@@ -122,12 +122,6 @@ misc:Button("All Obelisk", function()
     end)
 end)
 
-misc:Button("Anti Globus", function()
-    task.spawn(function()
-        antiglobus()
-    end)
-end)
-
 misc:Slider("FOV",{
     min = 50; -- min value of the slider
     max = 120; -- max value of the slider
@@ -165,15 +159,6 @@ game.Players.LocalPlayer.Character.ChildAdded:Connect(function(Child)
        Child:Destroy()
     end
 end)
-
--- Anti Globus
-while wait() do
-    for i,v in next, game.Workspace.Thrown:GetChildren() do
-        if v:FindFirstChild("TouchInterest") and v.Name ~= "Part" then
-            v.CanTouch = false
-        end
-    end
-end
 
 -- No fire
 local Player = game.Players.LocalPlayer
